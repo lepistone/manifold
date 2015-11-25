@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <a href="{{ url_for('new') }}">New container</a>
+    <a href="{{ url_for('all_containers') }}">All containers</a>
+    <h1>Here are my containers:</h1>
+    <ul>
+      {% for container in containers %}
+      <li>
+        <a href="{{ url_for('start', cont_id=container.Id) }}">Start</a>
+        <a href="{{ url_for('login', cont_id=container.Id) }}">Login</a>
+        <ul>
+          <li>Names: {{ container.Names }}</li>
+          <li>Id: {{ container.Id }}</li>
+          <li>Image: {{ container.Image }}</li>
+          <li>ImageID: {{ container.ImageID[:12] }}</li>
+          <li>Status: {{ container.Status }}</li>
+          <li>Ports: {{ container.Ports }}</li>
+          <li>Label: {{ container.Label }}</li>
+          <li>Created: {{ container.Created }}</li>
+        </ul>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
