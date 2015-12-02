@@ -1,6 +1,6 @@
 from flask import Flask, Response, render_template, redirect, url_for
 from docker import Client
-from docker.utils import kwargs_from_env, create_host_config
+from docker.utils import kwargs_from_env
 
 import config
 from util import pretty_json
@@ -9,7 +9,7 @@ from util import pretty_json
 app = Flask(__name__)
 app.debug = True
 doc = Client(**kwargs_from_env())
-host_config = create_host_config(
+host_config = doc.create_host_config(
     publish_all_ports=True,
 )
 
