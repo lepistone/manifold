@@ -7,7 +7,8 @@ from util import pretty_json
 
 
 app = Flask(__name__)
-app.debug = True
+app.config.from_object(config.FlaskConfig)
+
 doc = Client(**kwargs_from_env())
 host_config = doc.create_host_config(
     publish_all_ports=True,
@@ -55,4 +56,5 @@ def new():
 
 
 if __name__ == '__main__':
-    app.run()
+    # not accessible through docker if only local
+    app.run(host='0.0.0.0')
