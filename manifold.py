@@ -69,7 +69,7 @@ class Minion():
 
     @property
     def hostname(self):
-        return self.container['Id']
+        return self.container['Id'][:12]
 
     @property
     def subdomain(self):
