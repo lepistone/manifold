@@ -83,12 +83,7 @@ class Minion():
     # several minion in one 'docker-compose'
     @property
     def port(self):
-        port_info = self.dock.port(self.container['Id'], 8069)
-        if not port_info:
-            # FIXME: just for test as I don't have a running odoo image right
-            # now
-            port_info = self.dock.port(self.container['Id'], 5000)
-        return port_info[0]['HostPort'] if port_info else ''
+        return '8069'
 
     @property
     def ip(self):
