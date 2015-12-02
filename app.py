@@ -4,6 +4,7 @@ from docker.utils import kwargs_from_env
 
 import config
 from util import pretty_json
+from manifold import Manifold
 
 
 app = Flask(__name__)
@@ -14,30 +15,33 @@ host_config = doc.create_host_config(
     publish_all_ports=True,
 )
 
+manifold = Manifold(app, doc)
+manifold.nginx_write_and_reload()
+
 
 @app.route('/all')
 def all_containers():
-    containers = doc.containers(trunc=True, all=True)
-    return render_template('containers.html', containers=containers)
+    minions = manifold.minions(trunc=True, all=True)
+    return render_template('containers.html', minions=minions)
 
 
 @app.route('/')
 def containers():
-    containers = doc.containers(trunc=True)
-    return render_template('containers.html', containers=containers)
+    minions = manifold.minions(trunc=True)
+    return render_template('containers.html', minions=minions)
 
 
 @app.route('/container/<cont_id>/start')
 def start(cont_id):
     doc.start(container=cont_id)
+    manifold.nginx_write_and_reload()
     return redirect(url_for('containers'))
 
 
 @app.route('/container/<cont_id>/login')
 def login(cont_id):
-    inspect = doc.inspect_container(container=cont_id)
-    ext_port = list(inspect['NetworkSettings']['Ports'].values())[0][0]
-    return redirect('http://{HostIp}:{HostPort}'.format(**ext_port))
+    minion = manifold.minion_by_id(cont_id)
+    return redirect(minion.build_url())
 
 
 @app.route('/pull')

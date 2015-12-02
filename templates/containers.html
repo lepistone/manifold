@@ -7,19 +7,19 @@
     <a href="{{ url_for('all_containers') }}">All containers</a>
     <h1>Here are my containers:</h1>
     <ul>
-      {% for container in containers %}
+      {% for minion in minions %}
       <li>
-        <a href="{{ url_for('start', cont_id=container.Id) }}">Start</a>
-        <a href="{{ url_for('login', cont_id=container.Id) }}">Login</a>
+        <a href="{{ url_for('start', cont_id=minion.container.Id) }}">Start</a>
+        <a href="{{ url_for('login', cont_id=minion.container.Id) }}">Login</a>
         <ul>
-          <li>Names: {{ container.Names }}</li>
-          <li>Id: {{ container.Id }}</li>
-          <li>Image: {{ container.Image }}</li>
-          <li>ImageID: {{ container.ImageID[:12] }}</li>
-          <li>Status: {{ container.Status }}</li>
-          <li>Ports: {{ container.Ports }}</li>
-          <li>Label: {{ container.Label }}</li>
-          <li>Created: {{ container.Created }}</li>
+          <li>Names: {{ minion.container.Names }}</li>
+          <li>Id: {{ minion.container.Id }}</li>
+          <li>Image: {{ minion.container.Image }}</li>
+          <li>ImageID: {{ minion.container.ImageID[:12] }}</li>
+          <li>Status: {{ minion.container.Status }}</li>
+          <li>Ports: {{ minion.container.Ports }}</li>
+          <li>Label: {{ minion.container.Label }}</li>
+          <li>Created: {{ minion.container.Created }}</li>
         </ul>
       </li>
       {% endfor %}
