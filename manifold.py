@@ -37,8 +37,14 @@ class Manifold():
         return [Minion(self, container) for container in containers]
 
     def containers(self, trunc=True,  all=False):
-        # TODO: filter according to labels
-        return self.dock.containers(trunc=trunc, all=all)
+        filters = {'ancestor': self.config.DOCKER_IMAGE}
+        filters.update(self.config.DOCKER_FILTER)
+
+        return self.dock.containers(
+            trunc=trunc,
+            all=all,
+            filters=filters,
+        )
 
     @property
     def hostname(self):

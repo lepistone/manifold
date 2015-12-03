@@ -63,17 +63,21 @@ def logs(cont_id):
 
 @app.route('/pull')
 def pull():
+    image = manifold.config.DOCKER_IMAGE
+
     def gen():
         yield b'Pulling image. Please wait! (streaming)\n'
-        for line in doc.pull(config.repo, stream=True):
+        for line in doc.pull(image, stream=True):
             yield pretty_json(line)
     return Response(gen())
 
 
 @app.route('/new')
 def new():
-    doc.create_container(image=config.image, host_config=host_config)
-    flash('New container created for image {}'.format(config.image))
+    # TODO: de-hardcode the tag
+    image = manifold.config.image_with_tag('latest')
+    manifold.dock.create_container(image=image, host_config=host_config)
+    flash('New container created for image {}'.format(image))
     return redirect(url_for('containers'))
 
 
