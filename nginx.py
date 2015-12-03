@@ -6,11 +6,10 @@ class NginxConfigRenderer():
     def __init__(self, manifold):
         self.manifold = manifold
         self.app = manifold.app
-        self.dock = manifold.dock
 
     def render(self, minions):
         with self.app.app_context():
-            return render_template('nginx.conf',
+            return render_template('nginx/nginx.conf',
                                    manifold=self.manifold,
                                    minions=minions)
 

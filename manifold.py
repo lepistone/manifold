@@ -14,6 +14,8 @@ class Manifold():
 
     def reload_nginx(self):
         try:
+            # TODO: get the name of the container(s) with docker-compose:
+            # docker-compose ps -q nginx
             self.dock.kill(self.config.NGINX_CONTAINER,
                            'SIGHUP')
         except docker.errors.APIError as err:
