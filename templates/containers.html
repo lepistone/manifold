@@ -1,28 +1,56 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  </head>
-  <body>
-    <a href="{{ url_for('new') }}">New container</a>
-    <a href="{{ url_for('all_containers') }}">All containers</a>
-    <h1>Here are my containers:</h1>
-    <ul>
-      {% for container in containers %}
-      <li>
-        <a href="{{ url_for('start', cont_id=container.Id) }}">Start</a>
-        <a href="{{ url_for('login', cont_id=container.Id) }}">Login</a>
+{% extends "layout.html" %}
+{% block body %}
+
+<a id="add-button" href="{{ url_for('new') }}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+  <i class="material-icons">add</i>
+</a>
+<div class="mdl-tooltip" for="add-button">
+Add Container
+</div>
+
+<a href="{{ url_for('all_containers') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+  All containers
+</a>
+
+<div class="mdl-grid">
+{% for minion in minions %}
+  <div class="mdl-cell mdl-cell--2-col">
+    <div class="card-composition mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title mdl-card--expand" id="composition-descr-{{ minion.container.Id }}">
+        <h6>{{ minion.container.Image }}</h6>
+      </div>
+      <div class="mdl-card__supporting-text">
+        {{ minion.container.Status }}
+      </div>
+      <div class="mdl-tooltip" for="composition-descr-{{ minion.container.Id }}">
         <ul>
-          <li>Names: {{ container.Names }}</li>
-          <li>Id: {{ container.Id }}</li>
-          <li>Image: {{ container.Image }}</li>
-          <li>ImageID: {{ container.ImageID[:12] }}</li>
-          <li>Status: {{ container.Status }}</li>
-          <li>Ports: {{ container.Ports }}</li>
-          <li>Label: {{ container.Label }}</li>
-          <li>Created: {{ container.Created }}</li>
+          <li>Names: {{ minion.container.Names }}</li>
+          <li>Id: {{ minion.container.Id }}</li>
+          <li>Image: {{ minion.container.Image }}</li>
+          <li>ImageID: {{ minion.container.ImageID[:12] }}</li>
+          <li>Status: {{ minion.container.Status }}</li>
+          <li>Ports: {{ minion.container.Ports }}</li>
+          <li>Label: {{ minion.container.Label }}</li>
+          <li>Created: {{ minion.container.Created }}</li>
         </ul>
-      </li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+           href="{{ url_for('start', cont_id=minion.container.Id) }}">
+          <i class="material-icons">play_arrow</i>
+        </a>
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+           href="{{ url_for('login', cont_id=minion.container.Id) }}">
+          <i class="material-icons">launch</i>
+        </a>
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+           href="{{ url_for('logs', cont_id=minion.container.Id) }}">
+          <i class="material-icons">subject</i>
+        </a>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+.card-composition.mdl-card {
+  width: 256px;
+  height: 128px;
+}
+.card-composition > .mdl-card__title {
+  align-items: flex-start;
+  background: #009688;
+}
+.card-composition > .mdl-card__title > h6 {
+  margin-top: 0;
+}
+.card-composition > .mdl-card__actions {
+  display: flex;
+  box-sizing:border-box;
+  align-items: center;
+}
+.card-composition > .mdl-card__title {
+  color: #fff;
+}
+
+.card-composition > .mdl-card__actions .mdl-button {
+  min-width: 40px;
+  padding: 0 8px;
+}
