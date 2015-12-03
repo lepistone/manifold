@@ -68,6 +68,19 @@ class Minion():
         self.dock = manifold.dock
         self.manifold = manifold
         self.container = container
+        self._inspect = None
+
+    @property
+    def inspect(self):
+        if self._inspect is None:
+            self._inspect = self.dock.inspect_container(
+                container=self.container['Id']
+            )
+        return self._inspect
+
+    @property
+    def state(self):
+        return self.inspect['State']['Status']
 
     @property
     def hostname(self):
@@ -89,8 +102,7 @@ class Minion():
 
     @property
     def ip(self):
-        inspect = self.dock.inspect_container(container=self.container['Id'])
-        network = inspect.get('NetworkSettings', {})
+        network = self.inspect.get('NetworkSettings', {})
         return network.get('IPAddress') or ''
 
     # FIXME: specific to Odoo, should have a way to map all ports with

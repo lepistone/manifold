@@ -35,14 +35,26 @@ Add Container
         </ul>
       </div>
       <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-           href="{{ url_for('start', cont_id=minion.container.Id) }}">
-          <i class="material-icons">play_arrow</i>
-        </a>
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-           href="{{ url_for('login', cont_id=minion.container.Id) }}">
-          <i class="material-icons">launch</i>
-        </a>
+        {% if minion.state == 'running' %}
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+             href="{{ url_for('pause', cont_id=minion.container.Id) }}">
+            <i class="material-icons">pause_arrow</i>
+          </a>
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+             href="{{ url_for('login', cont_id=minion.container.Id) }}">
+            <i class="material-icons">launch</i>
+          </a>
+        {% elif minion.state == 'paused' %}
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+             href="{{ url_for('unpause', cont_id=minion.container.Id) }}">
+            <i class="material-icons">play_arrow</i>
+          </a>
+        {% else %}
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+             href="{{ url_for('start', cont_id=minion.container.Id) }}">
+            <i class="material-icons">play_arrow</i>
+          </a>
+        {% endif %}
         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
            href="{{ url_for('logs', cont_id=minion.container.Id) }}">
           <i class="material-icons">subject</i>

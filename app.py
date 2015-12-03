@@ -38,6 +38,18 @@ def start(cont_id):
     return redirect(url_for('containers'))
 
 
+@app.route('/container/<cont_id>/pause')
+def pause(cont_id):
+    doc.pause(container=cont_id)
+    return redirect(url_for('containers'))
+
+
+@app.route('/container/<cont_id>/unpause')
+def unpause(cont_id):
+    doc.unpause(container=cont_id)
+    return redirect(url_for('containers'))
+
+
 @app.route('/container/<cont_id>/login')
 def login(cont_id):
     minion = manifold.minion_by_id(cont_id)
