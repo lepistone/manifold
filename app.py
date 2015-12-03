@@ -66,9 +66,9 @@ def pull():
     image = manifold.config.DOCKER_IMAGE
 
     def gen():
-        yield b'Pulling image. Please wait! (streaming)\n'
+        yield b'Pulling image. Please wait! (streaming)<br/>'
         for line in doc.pull(image, stream=True):
-            yield pretty_json(line)
+            yield '{}<br/>'.format(pretty_json(line.decode('utf8')))
     return Response(gen())
 
 
