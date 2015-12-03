@@ -17,3 +17,8 @@
 .card-composition > .mdl-card__title {
   color: #fff;
 }
+
+.card-composition > .mdl-card__actions .mdl-button {
+  min-width: 40px;
+  padding: 0 8px;
+}

@@ -44,6 +44,11 @@ def login(cont_id):
     return redirect(minion.build_url())
 
 
+@app.route('/container/<cont_id>/logs')
+def logs(cont_id):
+    return manifold.dock.logs(cont_id).decode('utf8').replace('\n', '<br/>')
+
+
 @app.route('/pull')
 def pull():
     def gen():

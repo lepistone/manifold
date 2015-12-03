@@ -37,14 +37,17 @@ Add Container
       <div class="mdl-card__actions mdl-card--border">
         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
            href="{{ url_for('start', cont_id=minion.container.Id) }}">
-        Start
+          <i class="material-icons">play_arrow</i>
         </a>
         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
            href="{{ url_for('login', cont_id=minion.container.Id) }}">
-        Connect
+          <i class="material-icons">launch</i>
         </a>
-        <div class="mdl-layout-spacer"></div>
-        <i class="material-icons">open_in_new</i>
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+           href="{{ url_for('logs', cont_id=minion.container.Id) }}">
+          <i class="material-icons">subject</i>
+        </a>
+        </a>
       </div>
     </div>
   </div>
