@@ -1,4 +1,4 @@
-from flask import Flask, Response, render_template, redirect, url_for
+from flask import Flask, Response, render_template, redirect, url_for, flash
 from docker import Client
 from docker.utils import kwargs_from_env
 
@@ -56,6 +56,7 @@ def pull():
 @app.route('/new')
 def new():
     doc.create_container(image=config.image, host_config=host_config)
+    flash('New container created for image {}'.format(config.image))
     return redirect(url_for('containers'))
 
 
