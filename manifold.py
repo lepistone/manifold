@@ -10,7 +10,7 @@ class Manifold():
     def __init__(self, app, dock):
         self.app = app
         self.dock = dock
-        self.config = config.ManifoldConfig
+        self.config = config.ManifoldConfig()
 
     def reload_nginx(self):
         try:
